@@ -1,0 +1,481 @@
+2.1. EXERCISE 1
+
+let var4 = 1982;
+undefined
+var4
+1982
+const var5 = 41;
+undefined
+var5
+41
+let var5 = 19;
+Uncaught SyntaxError: redeclaration of const var5
+    <anonymous> debugger eval code:1
+debugger eval code:1:1
+let var4 = 19;
+Uncaught SyntaxError: redeclaration of let var4
+    <anonymous> debugger eval code:1
+debugger eval code:1:1
+var4
+1982
+
+​3.1 Arrays
+
+const planets = ['venus', 'earth'];
+undefined
+planets
+Array [ "venus", "earth" ]
+
+planets.unshift('mercury'); //Add element to start
+3
+planets.push('mars'); //Add element to end
+4
+planets
+Array(4) [ "mercury", "venus", "earth", "mars" ]
+
+planets [2]
+"earth"
+planets [2] //Get 3rd element (indexing is zero-based)
+"earth"
+planets.length //Get number of elements in array
+4 
+
+3.1.1. EXERCISE 2
+// create a new array and then reverse it
+undefined
+let cba = ['c', 'b', 'a'].reverse(); //creates the array a,b,a then reverses it
+undefined
+cba
+Array(3) [ "a", "b", "c" ]
+
+let 123 = [1,2,3]; //create the array 1,2,3
+Uncaught SyntaxError: unexpected token: numeric literal
+debugger eval code:1:5
+let numbers = [1,2,3]; //create the array 1,2,3
+undefined
+numbers
+Array(3) [ 1, 2, 3 ]
+
+let concatenated = cba.concat(numbers); // concatenates reversed cba array and numbers array
+undefined
+concatenated
+Array(6) [ "a", "b", "c", 1, 2, 3 ]
+
+let result = concatenated.join(''); //join both arrays into a string "abc123"
+undefined
+result
+"abc123"
+console.log(result); //print the result to the console "abc123"
+abc123 debugger eval code:1:9
+undefined 
+
+3.2. PLAIN OBJECTS
+
+const person = {name: 'Daniel', age: 20};
+    undefined
+person
+    Object { name: "Daniel", age: 20 }
+
+person.name
+    "Daniel"
+person.job = 'Painter';
+    "Painter"
+person
+    Object { name: "Daniel", age: 20, job: "Painter" }
+
+const paintColour = 'red';
+    undefined
+const car = { paintColour }; //Same as {paintColoure:paintColour}
+    undefined
+car
+    Object { paintColour: "red" }
+
+3.3. THE DOCUMENT OBJECT
+document.getElementById('cool-section').innerHTML = "Hello there!" //page changes to display Hello there! in the yellow text area,
+    "Hello there!"
+// page returns to normal upon Refresh
+document.body.setAttribute('style', 'background-color: green;'); //page changes to display background colour of green
+    undefined 
+// page returns to normal upon refresh
+
+4. FUNCTIONS, METHODS, AND CLOSURES
+4.1. TRADITIONAL JAVASCRIPT FUNCTIONS
+
+function doubleValue(x) {
+  return x *2;
+}
+    undefined
+doubleValue(7)
+    14
+
+
+const areaOfSquare = function() {
+  return this.size * this.size;
+};
+    undefined
+const square1 = {size:7, area: areaOfSquare};
+    undefined
+const square2 = {size: 4, area: areaOfSquare};
+    undefined
+square1.area()
+    49
+square2.area()
+    16 
+areaOfSquare()
+    NaN
+this.size
+    undefined
+this.size * this.size
+    NaN
+const square3 = {size:2};
+    undefined
+const areaOfSquare3 = areaOfSquare.bind(square3);
+    undefined
+areaOfSquare3()
+    4 
+
+
+4.1.1. EXERCISE 3
+
+Create an object with a property name and a method introduce. 
+When introduce is called it should return the string “Hello, my name is <name>”, 
+where <name> is the string stored in the object’s name property.
+
+const person = {
+    name: 'Jackie',
+    introduce: function() {
+        return `Hello, my name is ${this.name}`;
+    }…
+    undefined
+// Call the introduce method
+console.log(person.introduce());  // Output: "Hello, my name is Jackie"
+    Hello, my name is Jackie
+// Use back ticks in the return area to ensure ${this.name} is recognised
+// back tick is top left on keyboard under the squiggly approx key `` / ~
+
+4.2. ARROW FUNCTIONS
+
+const arrowAreaOfSquare = () => {
+    return this.size * this.size;
+};
+undefined
+const square4 = {size: 6, area: arrowAreaOfSquare};
+undefined
+square4.area()
+NaN
+const boundAreaOfSquare = function() {
+    return this.size * this.size;
+}.bind(this);
+undefined
+const addTogether = (a,b) => a+b;
+undefined
+const addTogetherOld = function(a,b) {
+return a + b;
+};
+undefined
+addTogether(5,4)
+9
+addTogetherOld(5,4)
+9 
+
+4.3. CLOSURES
+
+const higherScopeConst = 42;
+undefined
+const doSomething = (x) => x + higherScopeConst;
+undefined
+doSomething(8)
+50
+doSomething(4)
+46
+// No matter where we call doSomething from, it will always be able to “see” the value of higherScopeConst. 
+// You can think of it as if higherScopeConst got “bundled up” with the function. 
+
+
+5. HIGHER ORDER FUNCTIONS
+5.1. MAP
+
+oldNumbers = [1, 2, 3];
+Array(3) [ 1, 2, 3 ]
+
+newNumbers = [];
+Array []
+
+for(let i = 0; i <oldNumbers.length; ++i) {
+    newNumbers[i] = oldNumbers[i] + 1;
+}
+console.log(newNumbers);
+Array(3) [ 2, 3, 4 ]
+
+//The map function is a common concept available in many programming languages, 
+// which simplifies code of this form. It takes an input array and a transformation function, 
+// and returns a transformed array. So, using the map function, the above code simplifies to the following:
+
+oldNumbers = [1, 2, 3];
+newNumbers = oldNumbers.map(x => x + 1);
+console.log(newNumbers);
+Array(3) [ 2, 3, 4 ]
+
+5.1.1. EXERCISE 4
+
+names = ['Alice', 'Bob', 'Cthulhu'];
+greetings = names.map(x => 'Hello ' + x + '!');
+console.log(greetings);
+Array(3) [ "Hello Alice!", "Hello Bob!", "Hello Cthulhu!" ]
+
+5.2. REDUCE
+
+myNumbers = [4, 7, 2];
+sum = 0;
+for(i = 0; i < myNumbers.length; ++i) {
+    sum += myNumbers[i];
+}
+    13
+myNumbers = [4, 7, 2];
+sum = myNumbers.reduce((sum, x) => sum + x, 0);
+console.log(sum);
+    13
+
+// The reduce function simplifies code of this form. 
+// It accepts an input array, an accumulation function, and an initial accumulation value as arguments. 
+// In our case, the input array is myNumbers, 
+// the accumulation function is (sum, x) => sum + x, 
+// and the initial accumulation value is 0.
+
+// An important thing to note is that reduce operates in left-to-right order through the array. 
+
+5.2.1. EXERCISE 5
+
+Use reduce to write code which calculates the maximum value in the array myNumbers. Hint: You can use Math.max to calculate the maximum of two numbers
+
+myNumbers = [4, 7, 2];
+max = myNumbers.reduce((max, x) => Math.max(max, x), myNumbers[0]);
+console.log(max);
+    7
+
+5.2.2. EXERCISE 6
+
+displayArray = (inputArray) => {
+// Create an array where each element contains <li>item</li>
+let itemArray = inputArray.map(item => `<li>${item}</li>`);
+// Concatenate all the elements of list into one string
+let oneString = itemArray.reduce((accumulator, item) => accumulator + item, '');
+document.getElementById('cool-section').innerHTML =
+    '<ul>' + oneString + '</ul>';
+}
+
+// Test the function
+names = ['Alice', 'Bob', 'Cthulhu'];
+greetings = names.map(x => 'Hello ' + x + '!');
+console.log(greetings);
+    Array(3) [ "Hello Alice!", "Hello Bob!", "Hello Cthulhu!" ]
+​
+    0: "Hello Alice!"
+​
+    1: "Hello Bob!"
+​
+    2: "Hello Cthulhu!"
+​
+    length: 3
+​
+    <prototype>: Array []
+    debugger eval code:13:9
+    undefined
+    displayArray(greetings);
+    undefined 
+
+// Output in Yellow Square on webpage:
+    Hello Alice!
+    Hello Bob!
+    Hello Cthulhu!
+
+6. LODASH
+
+The official documentation at https://github.com/lodash/lodash/tree/4.13.1/doc provides a full list of the functions provided by Lodash
+
+6.1. _.REJECT
+
+use _.reject to remove all elements in an array that are less than 5:
+
+oldNumbers = [4, 7, 2];
+    Array(3) [ 4, 7, 2 ]
+
+newNumbers = _.reject(oldNumbers, x => x < 5);
+    Array [ 7 ]
+
+console.log(newNumbers);
+    Array [ 7 ]
+
+6.2. _.FINDINDEX
+
+_.findIndex takes an array and a predicate function as input and returns the index of the first element for which the predicate is true.
+
+heroes = ['The Hulk', 'Wonder Woman', 'Batman'];
+_.findIndex(heroes, hero => _.endsWith(hero, 'man'));
+    1 
+
+If the end of the array is reached before the predicate returns true, _.findIndex will return -1.
+
+_.findIndex(heroes, hero => _.endsWith(hero, 'merica'));
+    -1 
+
+6.2.1. EXERCISE 7
+
+Use _.findIndex to return the index of the element which is exactly equal to ’Batman’ in the heroes array.
+
+heroes = ['The Hulk', 'Wonder Woman', 'Batman'];
+_.findIndex(heroes, hero => hero === 'Batman');
+    2 
+
+6.3. _.ASSIGN
+
+// reate a new copy of an object with one of the fields updated
+
+old_record = { name: 'Bob', age: 20};
+new_record = _.assign({}, old_record, { age: 21});
+    Object { name: "Bob", age: 21 }
+
+// add a new field
+
+new_record = _.assign({}, old_record, {mood: 'Curious' });
+    Object { name: "Bob", age: 20, mood: "Curious" }
+
+//do both at once
+
+new_record = _.assign({}, old_record, { age:21, mood:'Curious' });
+    Object { name: "Bob", age: 21, mood: "Curious" }
+
+// You can work with arrays in a similar way:
+
+items = ['Orange', 'Tomato', 'Banana'];
+new_items = _.assign([], items, { [1]: 'Apple' });
+    Array(3) [ "Orange", "Apple", "Banana" ]
+
+7. PROMISES
+
+// This will just output a Promise with a state "pending"
+console.log(fetch('https://httpbin.org/image/jpeg'));
+    Promise { <state>: "pending" }
+    debugger eval code:2:9
+    undefined
+// This will wait for the returned Promise to resolve, and do
+// something with the response.
+fetch('https://httpbin.org/image/jpeg') // Start a download
+    .then(res => res.blob()) //Get the content blob
+    .then(blob => { //Use the content blob…
+
+    Promise { <state>: "pending" }
+
+inserts a photo of a fox like animal below the yellow box
+
+// You may notice that we also used the .catch Promise method to provide a failure callback. 
+Sometimes an operation may fail, for example, if the Internet connection drops mid-download. 
+In such cases, we say that the promise was rejected. The success callbacks will be skipped, 
+and the failure callback will be called with an error object indicating what went wrong.
+
+8. [BONUS] PUTTING IT ALL TOGETHER
+
+8.1. EXERCISE 8
+
+[Bonus] Now it’s time to apply your JavaScript skills to a simple programming problem. 
+The task is to write a function called createCircle which produces circle objects with two methods: area and perimeter.
+Let’s take a look at what we want to be able to do once you’ve written your code.
+
+function createCircle(radius) {
+    return {
+        // Method to calculate the area of the circle
+        area: function() {
+            return Math.PI * Math.pow(radius, 2);
+        },
+        // Method to calculate the perimeter (circumference) of the circle
+        perimeter: function() {
+            return 2 * Math.PI * radius;
+        }
+    };
+}
+undefined
+createCircle
+function createCircle(radius)
+​
+arguments: null
+​
+caller: null
+​
+length: 1
+​
+name: "createCircle"
+​
+prototype: Object { … }
+​​
+constructor: function createCircle(radius)
+​​
+<prototype>: Object { … }
+​
+<prototype>: function ()
+
+circle
+undefined
+const circle = createCircle(4);
+Uncaught SyntaxError: redeclaration of const circle
+    <anonymous> debugger eval code:1
+debugger eval code:1:1
+const myCircle = createCircle(4);
+undefined
+myCircle
+Object { area: area(), perimeter: perimeter() }
+​
+area: function area()
+​
+perimeter: function perimeter()
+​
+<prototype>: Object { … }
+
+myCircle.perimeter()
+    25.132741228718345
+myCircle.area()
+    50.26548245743669 
+
+8.2. EXERCISE 9
+
+
+// [Bonus] Build upon the previous code to write a function called createCircles which takes 
+// an array of radii as input and returns an array of circles as output. Hint: the map function is your friend.
+
+function createCircle(radius) {
+    return {
+        // Method to calculate the area of the circle
+        area: function() {
+        return Math.PI * Math.pow(radius, 2);
+        }
+    };
+} 
+
+function createCircles(radii) {
+    return radii.map(radius => createCircle(radius));
+}
+undefined 
+
+const radii = [2, 4, 6];
+undefined
+
+const circles = createCircles(radii);
+undefined
+
+circles.forEach((circle, index) => {
+    console.log(`Circle ${index + 1}:`);
+    console.log(`Area:`, circle.area());
+    console.log(`Perimeter:`, circle.perimeter())
+});
+
+//Output
+
+Circle 1: debugger eval code:2:10
+Area: 12.566370614359172 debugger eval code:3:10
+Perimeter: 12.566370614359172 debugger eval code:4:10
+Circle 2: debugger eval code:2:10
+Area: 50.26548245743669 debugger eval code:3:10
+Perimeter: 25.132741228718345 debugger eval code:4:10
+Circle 3: debugger eval code:2:10
+Area: 113.09733552923255 debugger eval code:3:10
+Perimeter: 37.69911184307752 debugger eval code:4:10
+undefined 
